@@ -145,6 +145,9 @@ class ChatChannel(Channel):
         reply = self._generate_reply(context)
 
         logger.debug("[WX] ready to decorate reply: {}".format(reply))
+
+        #重新更新下nick
+        self.check_msg_data(context['msg'])
         # reply的包装步骤
         reply = self._decorate_reply(context, reply)
 
@@ -340,6 +343,9 @@ class ChatChannel(Channel):
                 if cnt > 0:
                     logger.info("Cancel {} messages in session {}".format(cnt, session_id))
                 self.sessions[session_id][0] = Dequeue()
+
+    def check_msg_data(self, msg):
+        pass
 
 
 def check_prefix(content, prefix_list):
